@@ -152,7 +152,7 @@
                     <td>{{ $resource->name }}</td>
                     <td>{{ $latestInvoice->created_at->format('d M Y') }}</td>
                     <td>{{ $totalTechRates }}{{ $latestInvoice->currency->symbol }}</td>
-                    <td>{{ $resource->activities->where('tech_invoice', true)->count() }}</td>
+                    <td>{{ $resource->activities->where('tech_invoice', true)->where('tech_invoice_payment_status' , null)->count() }}</td>
                     <td>{{ $latestInvoice->status }}</td>
                     <td>
                         <button class="btn btn-sm btn-primaryy conform-table" data-id="{{ $latestInvoice->id }}"
@@ -258,7 +258,7 @@
                                         <div class="heading font-weight-bold">Ticket Detail</div>
 
 
-                                        @foreach($resource->activities->where('tech_invoice', true)->sortBy('activity_start_date') as $activity)
+                                        @foreach($resource->activities->where('tech_invoice', true)->where('tech_invoice_payment_status' , null)->sortBy('activity_start_date') as $activity)
                                             <div class="cell">{{$activity->tech_service_type}}</div>
                                             <div class="cell">
                                                 {{\Carbon\Carbon::parse($activity->activity_start_date)->format('d M Y')}}

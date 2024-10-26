@@ -151,7 +151,7 @@
                     <td>{{$latestInvoice->client->company_name}}</td>
                     <td>{{$latestInvoice->created_at->format('d M Y')}}</td>
                     <td>{{$totalCustomerRates}}{{$latestInvoice->currency->symbol}}</td>
-                    <td>{{$client->activities->where('customer_invoice', true)->count()}}</td>
+                    <td>{{$client->activities->where('customer_invoice', true)->where('customer_invoice_payment_status' , null)->count()}}</td>
                     <td>{{$latestInvoice->status}}</td>
                     <td>
                         <button class="btn btn-sm btn-primaryy conform-table"
@@ -236,7 +236,7 @@
                                         <div class="heading font-weight-bold">Ticket Detail</div>
 
 
-                                        @foreach($client->activities->where('customer_invoice', true)->sortBy('activity_start_date') as $activity)
+                                        @foreach($client->activities->where('customer_invoice', true)->where('customer_invoice_payment_status' , null)->sortBy('activity_start_date') as $activity)
                                         <div class="cell">{{$activity->customer_service_type}}</div>
                                         <div class="cell">
                                             {{\Carbon\Carbon::parse($activity->activity_start_date)->format('d M Y')}}
